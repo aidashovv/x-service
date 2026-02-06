@@ -38,9 +38,9 @@ func (us *UserService) UpdatePassword(username, newPassword string) error {
 	if err != nil {
 		if errors.Is(err, myerr.ErrUserNotFound) {
 			return myerr.ErrUserNotFound
-		} else {
-			return myerr.ErrSmthIsWrong
 		}
+
+		return myerr.ErrSmthIsWrong
 	}
 
 	if err := user.SetPassword(newPassword); err != nil {

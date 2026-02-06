@@ -1,0 +1,26 @@
+version: "2"
+
+formatters:
+  enable:
+    - goimports
+
+linters:
+  default: none
+  enable:
+    - govet
+    - revive
+    - errcheck
+
+  exclusions:
+    presets: []
+
+  settings:
+    revive:
+      enable-all-rules: false
+      enable-default-rules: false
+
+      rules:
+        - name: indent-error-flow
+        - name: range-val-address
+        - name: early-return
+        - name: error-return

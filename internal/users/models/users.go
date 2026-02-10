@@ -2,6 +2,7 @@ package models
 
 import (
 	"time"
+	"unicode/utf8"
 
 	"github.com/google/uuid"
 
@@ -55,7 +56,7 @@ func NewUsername(name string) (Username, error) {
 		return Username{}, myerr.ErrUsernameIsEmpty
 	}
 
-	if len(name) > maxUsernameLength {
+	if utf8.RuneCountInString(name) > maxUsernameLength {
 		return Username{}, myerr.ErrUsernameTooLong
 	}
 
@@ -100,7 +101,7 @@ func NewPassword(content string) (Password, error) {
 		return Password{}, myerr.ErrPasswordIsEmpty
 	}
 
-	if len(content) < minPasswordLength {
+	if utf8.RuneCountInString(content) < minPasswordLength {
 		return Password{}, myerr.ErrPasswordTooShort
 	}
 

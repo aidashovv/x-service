@@ -1,4 +1,4 @@
-module pdd
+module x-service
 
 go 1.25.1
 

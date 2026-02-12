@@ -1,7 +1,7 @@
-package http
+package handlers
 
 import (
-	"pdd/internal/users/models"
+	"x-service/internal/users/models"
 )
 
 func ToUser(userDTO UserDTO) (*models.User, error) {

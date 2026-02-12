@@ -1,22 +1,22 @@
-package http
+package handlers
 
 import (
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
-	"pdd/internal/users/services"
+	"x-service/internal/users/usecases"
 
-	myerr "pdd/internal/users/errors"
+	myerr "x-service/internal/core/errors"
 
 	"github.com/gorilla/mux"
 )
 
 type HTTPHandlers struct {
-	service services.Service
+	service usecases.Service
 }
 
-func NewHTTPHandlers(userService *services.UserService) *HTTPHandlers {
+func NewHTTPHandlers(userService *usecases.UserService) *HTTPHandlers {
 	return &HTTPHandlers{
 		service: userService,
 	}

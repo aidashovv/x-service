@@ -1,11 +1,11 @@
-package services
+package usecases
 
 import (
 	"errors"
-	"pdd/internal/users/adapters"
-	"pdd/internal/users/models"
+	"x-service/internal/users/adapters"
+	"x-service/internal/users/models"
 
-	myerr "pdd/internal/users/errors"
+	myerr "x-service/internal/core/errors"
 )
 
 type Service interface {

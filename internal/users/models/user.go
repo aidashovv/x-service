@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/uuid"
 
-	myerr "pdd/internal/users/errors"
+	myerr "x-service/internal/core/errors"
 )
 
 const (

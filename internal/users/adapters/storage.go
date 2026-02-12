@@ -1,10 +1,10 @@
 package adapters
 
 import (
-	"pdd/internal/users/models"
 	"sync"
+	"x-service/internal/users/models"
 
-	myerr "pdd/internal/users/errors"
+	myerr "x-service/internal/core/errors"
 )
 
 type Repository interface {

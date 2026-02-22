@@ -13,8 +13,10 @@ var (
 	ErrPasswordTooShort = errors.New("password too short")
 	ErrMinAgeThreshold  = errors.New("age under min threshold")
 
-	// for storage and service
+	// for storage & service
 	ErrUserAlreadyExists = errors.New("user already exists")
 	ErrUserNotFound      = errors.New("user not found")
-	ErrSmthIsWrong       = errors.New("internal server error")
+
+	// for config
+	ErrRequiredPassword = errors.New("db password is required")
 )

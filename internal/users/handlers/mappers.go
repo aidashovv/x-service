@@ -4,14 +4,14 @@ import (
 	"x-service/internal/users/models"
 )
 
-func ToUser(userDTO UserDTO) (*models.User, error) {
+func toUser(userDTO UserDTO) (*models.User, error) {
 	user, err := models.NewUser(
 		userDTO.Username,
 		userDTO.Password,
 		userDTO.Age,
 	)
 	if err != nil {
-		return &models.User{}, err
+		return nil, err
 	}
 
 	return user, nil
@@ -19,6 +19,7 @@ func ToUser(userDTO UserDTO) (*models.User, error) {
 
 func toResponse(user *models.User) UserDTO {
 	return NewUserDTO(
+		user.ID,
 		user.Username.GetName(),
 		user.Password.GetContent(),
 		user.Age.GetYears(),

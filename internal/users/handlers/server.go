@@ -1,37 +1,40 @@
 package handlers
 
 import (
-	"errors"
+	"context"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 )
 
 type HTTPServer struct {
-	httpHandlers *HTTPHandlers
+	server *http.Server
 }
 
-func NewHTTPServer(httpHandlers *HTTPHandlers) *HTTPServer {
-	return &HTTPServer{
-		httpHandlers: httpHandlers,
-	}
-}
-
-func (s *HTTPServer) StartServer() error {
+func NewHTTPServer(port string, httpHandlers *UserHandlers) *HTTPServer {
 	router := mux.NewRouter()
 
-	router.Path("/users").Methods("POST").HandlerFunc(s.httpHandlers.HandleCreateUser)
-	router.Path("/users/{username}").Methods("GET").HandlerFunc(s.httpHandlers.HandleGetUser)
-	router.Path("/users/{username}").Methods("PATCH").HandlerFunc(s.httpHandlers.HandleUpdateUserPassword)
-	router.Path("/users/{username}").Methods("DELETE").HandlerFunc(s.httpHandlers.HandleDeleteUser)
+	router.Path("/users").Methods("POST").HandlerFunc(httpHandlers.HandleCreateUser)
+	router.Path("/users/{id}").Methods("GET").HandlerFunc(httpHandlers.HandleGetUser)
+	router.Path("/users/{id}").Methods("PATCH").HandlerFunc(httpHandlers.HandleUpdateUserPassword)
+	router.Path("/users/{id}").Methods("DELETE").HandlerFunc(httpHandlers.HandleDeleteUser)
 
-	if err := http.ListenAndServe(":9091", router); err != nil {
-		if errors.Is(err, http.ErrServerClosed) {
-			return nil // nil, так как ErrServerClosed - базовая ошибка, когда все четко
-		}
-
-		return err
+	return &HTTPServer{
+		server: &http.Server{
+			Addr:           ":" + port,
+			Handler:        router,
+			ReadTimeout:    10 * time.Second,
+			WriteTimeout:   10 * time.Second,
+			MaxHeaderBytes: 1 << 20,
+		},
 	}
+}
 
-	return nil
+func (s *HTTPServer) Start() error {
+	return s.server.ListenAndServe()
+}
+
+func (s *HTTPServer) Shutdown(ctx context.Context) error {
+	return s.server.Shutdown(ctx)
 }

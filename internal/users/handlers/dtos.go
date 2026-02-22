@@ -2,16 +2,20 @@ package handlers
 
 import (
 	"encoding/json"
+
+	"github.com/google/uuid"
 )
 
 type UserDTO struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Age      int    `json:"age"`
+	ID       uuid.UUID `json:"id"`
+	Username string    `json:"username"`
+	Password string    `json:"password"`
+	Age      int       `json:"age"`
 }
 
-func NewUserDTO(username, password string, age int) UserDTO {
+func NewUserDTO(id uuid.UUID, username, password string, age int) UserDTO {
 	return UserDTO{
+		ID:       id,
 		Username: username,
 		Password: password,
 		Age:      age,
